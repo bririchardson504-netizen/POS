@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Restaurant POS</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<header>
+  <h1>Restaurant POS</h1>
+  <div id="sessionRole">Signed out</div>
+</header>
+
+<main>
+  <!-- LOGIN -->
+  <section id="login">
+    <h2>Sign In</h2>
+    <input id="staffCode" placeholder="Staff Code">
+    <button id="staffLogin">Staff Login</button>
+
+    <input id="managerCode" placeholder="Manager Code">
+    <button id="managerLogin">Manager Login</button>
+  </section>
+
+  <!-- POS -->
+  <section id="pos" hidden>
+    <div id="menu"></div>
+    <div id="ticket"></div>
+
+    <div id="totals">
+      <div>Subtotal: <span id="subtotal">$0.00</span></div>
+      <div>Tax: <span id="tax">$0.00</span></div>
+      <div>Total: <span id="total">$0.00</span></div>
+    </div>
+
+    <button id="print">Print Receipt</button>
+    <button id="logout">Logout</button>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
