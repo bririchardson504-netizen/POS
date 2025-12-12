@@ -1,37 +1,98 @@
-body {
-  font-family: -apple-system, system-ui;
-  background: #111;
-  color: white;
-  margin: 0;
-  padding: 10px;
+:root{
+  --bg:#0b0b0c; --card:#141416; --line:#242428;
+  --txt:#f3f4f6; --muted:#9aa0a6;
+  --btn:#24242a; --btn2:#0f0f12;
+  --good:#34d399; --warn:#fbbf24;
+  --r:16px;
+  font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial;
 }
-
-header {
-  text-align: center;
-  padding: 10px;
-  background: black;
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt)}
+.top{
+  position:sticky;top:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 16px;border-bottom:1px solid var(--line);
+  background:rgba(11,11,12,.92);backdrop-filter:blur(10px)
 }
+.brand{font-weight:900;letter-spacing:.4px}
+.wrap{max-width:1100px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted)}
+.row{display:flex;align-items:center}
+.space{justify-content:space-between}
+.gap{gap:10px}
+.center{text-align:center}
+hr{border:none;border-top:1px dashed #2b2b31;margin:12px 0}
 
-button {
-  padding: 12px;
-  margin: 6px 0;
-  width: 100%;
-  font-size: 16px;
+label{display:block;margin:10px 0 6px;color:var(--muted);font-size:13px}
+input,.select{
+  width:100%;padding:12px;border-radius:12px;
+  border:1px solid var(--line);background:#0f0f12;color:var(--txt)
 }
-
-input {
-  padding: 12px;
-  width: 100%;
-  margin: 6px 0;
-  font-size: 16px;
+.search{max-width:220px}
+.btn{
+  width:100%;padding:12px;border-radius:12px;
+  border:1px solid var(--line);background:var(--btn);color:var(--txt);font-weight:800
 }
+.btn.dark{background:var(--btn2)}
+.btn.ghost{background:transparent}
+.smallBtn{padding:10px 12px;width:auto}
+.right{display:flex;gap:10px;align-items:center}
 
-#menu button {
-  background: #333;
+.two{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
+.grid2{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:980px){.grid2{grid-template-columns:1.25fr .75fr}}
+
+.catBar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 12px}
+.catBtn{
+  padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+  background:#0f0f12;color:var(--txt);font-weight:900
 }
+.catBtn.active{outline:2px solid #3b82f6}
 
-#ticket {
-  margin-top: 20px;
-  border-top: 1px solid #444;
-  padding-top: 10px;
+.menuGrid{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:760px){.menuGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.menuItem{
+  background:#101012;border:1px solid var(--line);border-radius:14px;padding:12px;
+  display:flex;flex-direction:column;gap:8px;min-height:110px
+}
+.menuName{font-weight:900}
+.menuCat{color:var(--muted);font-size:12px}
+.menuPrice{font-weight:900;color:var(--good);margin-top:auto}
+.menuItem button{margin-top:8px}
+
+.ticket{max-height:52vh;overflow:auto;padding:6px 2px}
+.line{
+  border-bottom:1px dashed #2b2b31;padding:10px 0;
+  display:flex;justify-content:space-between;gap:10px
+}
+.line strong{font-weight:900}
+.line .meta{color:var(--muted);font-size:12px;margin-top:3px}
+.lineBtns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.lineBtns button{width:auto;padding:8px 10px}
+
+.totals{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+.total{font-size:18px;font-weight:900}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+@media(min-width:980px){.actions{grid-template-columns:repeat(4,1fr)}}
+.hint{color:var(--warn);margin-top:8px}
+
+.dlg::backdrop{background:rgba(0,0,0,.6)}
+.dlgBody{width:min(900px,94vw);border:none;border-radius:18px;background:var(--card);padding:14px}
+.dlgTop{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}
+.modsBody{display:grid;gap:12px;margin-bottom:12px}
+.modGroup{background:#0f0f12;border:1px solid var(--line);border-radius:14px;padding:12px}
+.modOpt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:12px;background:#101012;margin-top:8px}
+.modOpt input{margin-top:3px}
+
+.receiptCard{max-width:460px;margin:0 auto}
+.noprint{}
+@media print{
+  .top,#viewPos,.noprint{display:none!important}
+  #viewReceipt{display:block!important}
+  body{background:white;color:black}
+  .card{border:none}
 }
