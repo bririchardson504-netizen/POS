@@ -3,137 +3,108 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>La Stella d’Oro POS</title>
+  <title>POS</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=999" />
 </head>
 <body>
-  <header class="top">
-    <div class="brand">La Stella d’Oro</div>
-    <div class="right">
-      <span id="roleBadge" class="badge">Signed out</span>
-      <button id="btnSignOut" class="btn ghost" hidden>Sign out</button>
+  <header class="topbar">
+    <div class="logo">
+      <div class="dot"></div>
+      <div>
+        <div class="title" id="restName">La Stella d’Oro</div>
+        <div class="sub" id="roleBadge">Signed out</div>
+      </div>
+    </div>
+    <div class="topActions">
+      <button id="btnManagerPanel" class="chip" hidden>Manager</button>
+      <button id="btnSignOut" class="chip" hidden>Sign out</button>
     </div>
   </header>
 
   <!-- LOGIN -->
   <main id="viewLogin" class="wrap">
-    <section class="card">
-      <h1>POS Login</h1>
-      <p class="muted">Staff can ring orders. Manager code is required for void/comp/discount.</p>
+    <section class="loginCard">
+      <h1>Sign in</h1>
+      <p class="muted">Tap a button, then use the on-screen keypad.</p>
 
-      <div class="two">
-        <div>
-          <label>Staff Code</label>
-          <input id="staffCode" inputmode="numeric" placeholder="1111" />
-          <button id="btnStaff" class="btn">Sign in as Staff</button>
+      <div class="loginGrid">
+        <div class="loginBox">
+          <div class="loginLabel">Staff</div>
+          <div class="pinRow">
+            <input id="staffCode" class="pin" placeholder="Tap to enter" readonly />
+            <button id="btnStaffKeypad" class="btn">Keypad</button>
+          </div>
+          <button id="btnStaff" class="btn primary">Sign in as Staff</button>
         </div>
 
-        <div>
-          <label>Manager Code</label>
-          <input id="managerCode" inputmode="numeric" placeholder="9999" />
+        <div class="loginBox">
+          <div class="loginLabel">Manager</div>
+          <div class="pinRow">
+            <input id="managerCode" class="pin" placeholder="Tap to enter" readonly />
+            <button id="btnManagerKeypad" class="btn">Keypad</button>
+          </div>
           <button id="btnManager" class="btn dark">Sign in as Manager</button>
         </div>
       </div>
 
-      <details class="muted small">
-        <summary>Default codes</summary>
-        Staff: <code>1111</code> &nbsp; Manager: <code>9999</code>
-      </details>
+      <div class="hint muted small">Default: Staff <code>1111</code> • Manager <code>9999</code></div>
     </section>
   </main>
 
   <!-- POS -->
   <main id="viewPos" class="wrap" hidden>
-    <section class="grid2">
-      <!-- MENU -->
-      <section class="card">
-        <div class="row space">
-          <h2>Menu</h2>
+    <section class="posShell">
+      <!-- LEFT: MENU -->
+      <section class="panel">
+        <div class="panelTop">
+          <div class="panelTitle">Menu</div>
           <input id="menuSearch" class="search" placeholder="Search…" />
         </div>
-
         <div id="catBar" class="catBar"></div>
-        <div id="menuGrid" class="menuGrid"></div>
+        <div id="menuGrid" class="tiles"></div>
       </section>
 
-      <!-- TICKET -->
-      <section class="card">
-        <div class="row space">
-          <h2>Ticket</h2>
-          <div class="row gap">
+      <!-- RIGHT: TICKET -->
+      <section class="panel ticketPanel">
+        <div class="panelTop">
+          <div class="panelTitle">Ticket</div>
+          <div class="row">
             <select id="tableSelect" class="select">
               <option value="">No table</option>
-              <option>Table 1</option><option>Table 2</option><option>Table 3</option>
-              <option>Table 4</option><option>Table 5</option><option>To-go</option>
+              <option>Table 1</option><option>Table 2</option><option>Table 3</option><option>Table 4</option><option>Table 5</option>
+              <option>Table 6</option><option>Table 7</option><option>Table 8</option><option>Table 9</option><option>Table 10</option>
+              <option>To-go</option><option>Delivery</option>
             </select>
-            <button id="btnNew" class="btn ghost smallBtn">New</button>
+            <button id="btnNew" class="chip">New</button>
           </div>
         </div>
 
-        <div id="ticketList" class="ticket"></div>
+        <div id="ticketList" class="ticketList"></div>
 
         <div class="totals">
-          <div class="row"><span>Subtotal</span><span id="tSubtotal">$0.00</span></div>
-          <div class="row"><span>Discount</span><span id="tDiscount">$0.00</span></div>
-          <div class="row"><span>Tax</span><span id="tTax">$0.00</span></div>
-          <div class="row total"><span>Total</span><span id="tTotal">$0.00</span></div>
+          <div class="trow"><span>Subtotal</span><span id="tSubtotal">$0.00</span></div>
+          <div class="trow"><span>Discount</span><span id="tDiscount">$0.00</span></div>
+          <div class="trow"><span>Tax</span><span id="tTax">$0.00</span></div>
+          <div class="trow grand"><span>Total</span><span id="tTotal">$0.00</span></div>
         </div>
 
-        <div class="actions">
-          <button id="btnDiscount" class="btn ghost">Discount</button>
-          <button id="btnComp" class="btn ghost">Comp</button>
-          <button id="btnVoid" class="btn ghost">Void</button>
-          <button id="btnReceipt" class="btn dark">Receipt / Print</button>
+        <div class="bottomBar">
+          <button id="btnQty" class="bbtn">Qty</button>
+          <button id="btnDiscount" class="bbtn">Discount</button>
+          <button id="btnComp" class="bbtn">Comp</button>
+          <button id="btnVoid" class="bbtn danger">Void</button>
+          <button id="btnReceipt" class="bbtn primary">Receipt</button>
         </div>
 
-        <p id="hint" class="hint" hidden>Manager code required.</p>
+        <div id="toastMsg" class="toastMsg" hidden></div>
       </section>
     </section>
   </main>
 
-  <!-- MODS DIALOG -->
-  <dialog id="dlgMods" class="dlg">
-    <form method="dialog" class="dlgBody">
-      <div class="dlgTop">
-        <strong id="modsTitle">Mods</strong>
-        <button class="btn ghost smallBtn" value="close">Close</button>
-      </div>
-      <div id="modsBody" class="modsBody"></div>
-      <div class="row gap">
-        <button id="btnModsSave" class="btn dark" type="button">Save Mods</button>
-        <button id="btnModsClear" class="btn ghost" type="button">Clear</button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- DISCOUNT DIALOG -->
-  <dialog id="dlgDiscount" class="dlg">
-    <form method="dialog" class="dlgBody">
-      <div class="dlgTop">
-        <strong>Discount</strong>
-        <button class="btn ghost smallBtn" value="close">Close</button>
-      </div>
-
-      <label>Type</label>
-      <select id="discType" class="select">
-        <option value="percent">Percent (%)</option>
-        <option value="amount">Amount ($)</option>
-      </select>
-
-      <label>Value</label>
-      <input id="discValue" inputmode="decimal" placeholder="10" />
-
-      <div class="row gap">
-        <button id="btnDiscApply" class="btn dark" type="button">Apply</button>
-        <button id="btnDiscClear" class="btn ghost" type="button">Clear</button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- RECEIPT VIEW -->
+  <!-- RECEIPT -->
   <main id="viewReceipt" class="wrap" hidden>
-    <section class="card receiptCard">
+    <section class="receipt">
       <div class="center">
         <h2 id="rName">La Stella d’Oro</h2>
         <div id="rMeta" class="muted"></div>
@@ -141,18 +112,70 @@
       <hr/>
       <div id="rItems"></div>
       <hr/>
-      <div class="row"><span>Subtotal</span><span id="rSubtotal"></span></div>
-      <div class="row"><span>Discount</span><span id="rDiscount"></span></div>
-      <div class="row"><span>Tax</span><span id="rTax"></span></div>
-      <div class="row total"><span>Total</span><span id="rTotal"></span></div>
+      <div class="trow"><span>Subtotal</span><span id="rSubtotal"></span></div>
+      <div class="trow"><span>Discount</span><span id="rDiscount"></span></div>
+      <div class="trow"><span>Tax</span><span id="rTax"></span></div>
+      <div class="trow grand"><span>Total</span><span id="rTotal"></span></div>
       <hr/>
       <div class="row gap noprint">
-        <button id="btnBack" class="btn ghost">Back</button>
+        <button id="btnBack" class="btn">Back</button>
         <button id="btnPrint" class="btn dark">Print</button>
       </div>
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <!-- MODS -->
+  <dialog id="dlgMods" class="dlg">
+    <form method="dialog" class="dlgBody">
+      <div class="dlgTop">
+        <strong id="modsTitle">Mods</strong>
+        <button class="chip" value="close">Close</button>
+      </div>
+      <div id="modsBody" class="modsBody"></div>
+      <div class="row gap">
+        <button id="btnModsSave" class="btn dark" type="button">Save</button>
+        <button id="btnModsClear" class="btn" type="button">Clear</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- MANAGER PANEL -->
+  <dialog id="dlgManager" class="dlg">
+    <form method="dialog" class="dlgBody">
+      <div class="dlgTop">
+        <strong>Manager Tools</strong>
+        <button class="chip" value="close">Close</button>
+      </div>
+      <div class="mgrGrid">
+        <button id="btnMgrReopen" class="btn">Reopen Ticket</button>
+        <button id="btnMgrClearDisc" class="btn">Clear Discount</button>
+        <button id="btnMgrCompTicket" class="btn">Comp Ticket</button>
+        <button id="btnMgrVoidTicket" class="btn danger">Void Ticket</button>
+        <button id="btnMgrCompItem" class="btn">Comp Selected Item</button>
+        <button id="btnMgrVoidItem" class="btn danger">Void Selected Item</button>
+        <button id="btnMgrPriceOverride" class="btn">Price Override (Selected)</button>
+      </div>
+      <p class="muted small">Manager actions require manager code if you’re signed in as staff.</p>
+    </form>
+  </dialog>
+
+  <!-- KEYPAD (no keyboard needed) -->
+  <dialog id="dlgPad" class="dlg">
+    <form method="dialog" class="dlgBody padBody">
+      <div class="dlgTop">
+        <strong id="padTitle">Keypad</strong>
+        <button class="chip" value="close">Close</button>
+      </div>
+      <input id="padDisplay" class="padDisplay" readonly />
+      <div class="padGrid" id="padGrid"></div>
+      <div class="row gap">
+        <button id="padClear" class="btn" type="button">Clear</button>
+        <button id="padBack" class="btn" type="button">Back</button>
+        <button id="padOk" class="btn primary" type="button">OK</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js?v=999" defer></script>
 </body>
 </html>
